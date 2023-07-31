@@ -1,8 +1,11 @@
 # vite-plugin-env-parser
 
-helps you automatically convert variable types in `.env.xxx` file.
+### Why? 
 
-### usage
+When you add the environment variable in `.env` file, no matter what value you set, you can only get a string value through `import.meta.env`.
+So this plugin can helps you automatically convert variable types.
+
+### Install
 
 ```bash
 pnpm add vite-plugin-env-parser -D
@@ -21,3 +24,23 @@ export default defineConfig({
   ]
 })
 ```
+
+### Usage
+
+`.env` or `.env.xxx` file:
+
+```bash
+# auto convert to number
+VITE_PORT=3000
+
+# hold string
+VITE_APP_TITLE=demo
+
+# auto convert to boolean
+VITE_DROP_CONSOLE=false
+
+# force covert to string
+VITE_FORCE_STRING=true|string
+```
+
+more information in this [example app](https://github.com/zhou-tao/vite-plugin-env-parser/tree/main/examples/vite-vue3).
