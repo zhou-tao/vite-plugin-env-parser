@@ -6,11 +6,30 @@
   "description": "vite plugin for env variables type parse.",
   "author": "toryz <zhoutao_233@163.com>",
   "license": "MIT",
+  "homepage": "https://github.com/zhou-tao/vite-plugin-env-parser#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhou-tao/vite-plugin-env-parser.git"
+  },
+  "bugs": "https://github.com/zhou-tao/vite-plugin-env-parser/issues",
   "keywords": [
     "vite-plugin",
     "env"
   ],
-  "main": "dist/index.mjs",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "unbuild --stub",
     "build": "unbuild",
@@ -19,14 +38,17 @@
     "prepublishOnly": "pnpm build",
     "release": "bumpp && npm publish",
     "test": "vitest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "postinstall": "simple-git-hooks"
   },
   "peerDependencies": {
     "vite": ">=4"
   },
   "devDependencies": {
     "@toryz/eslint-config": "^0.1.2",
+    "@types/node": "^20.4.5",
     "bumpp": "^9.1.1",
+    "chalk": "^5.3.0",
     "eslint": "^8.46.0",
     "lint-staged": "^13.2.3",
     "simple-git-hooks": "^2.9.0",
@@ -34,5 +56,12 @@
     "unbuild": "^1.2.1",
     "vite": "^4.4.7",
     "vitest": "^0.33.0"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged",
+    "commit-msg": "node scripts/verifyCommit.js"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
   }
 }
