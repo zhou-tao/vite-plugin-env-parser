@@ -14,7 +14,7 @@
     </thead>
     <tbody>
       <tr v-for="(value, name) in env" :key="name">
-        <template v-if="(name as string).startsWith('VITE_')">
+        <template v-if="(name as string).startsWith('VITE_') || (name as string).startsWith('APP_')">
           <td>{{ name }}</td>
           <td>{{ value }}</td>
           <td class="type">

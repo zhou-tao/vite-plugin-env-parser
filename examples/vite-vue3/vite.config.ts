@@ -3,5 +3,6 @@ import vue from '@vitejs/plugin-vue'
 import envParser from '../../dist/index.mjs'
 
 export default defineConfig({
-  plugins: [vue(), envParser()]
+  plugins: [vue(), envParser()],
+  envPrefix: ['VITE_', 'APP_']
 })
