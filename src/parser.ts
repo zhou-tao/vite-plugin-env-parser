@@ -8,8 +8,8 @@ export function parse(env: Record<string, string>, prefix: Prefix = 'VITE_') {
   const metaEnv: any = {}
   for (const key in env) {
     const targetEnv: string = env[key]
-    if ((typeof key === 'string' && !key.startsWith(prefix as string))
-    && (Array.isArray(prefix) && prefix.every(p => !key.startsWith(p)))) {
+    const prefixes = Array.isArray(prefix) ? prefix : [prefix]
+    if (prefixes.every(p => !key.startsWith(p))) {
       metaEnv[key] = targetEnv
       continue
     }
