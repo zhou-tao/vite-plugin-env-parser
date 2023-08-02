@@ -1,11 +1,15 @@
 {
   "name": "vite-plugin-env-parser",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "packageManager": "pnpm@8.6.10",
   "description": "vite plugin for env variables type parse.",
   "author": "toryz <zhoutao_233@163.com>",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "homepage": "https://github.com/zhou-tao/vite-plugin-env-parser#readme",
   "repository": {
     "type": "git",
