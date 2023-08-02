@@ -1,5 +1,10 @@
 # vite-plugin-env-parser
 
+<p>
+  <a href="https://npmjs.com/package/vite-plugin-env-parser"><img src="https://img.shields.io/npm/v/vite-plugin-env-parser.svg" alt="npm package"></a>
+  <a href="https://github.com/zhou-tao/vite-plugin-env-parser/actions/workflows/ci.yml"><img src="https://github.com/zhou-tao/vite-plugin-env-parser/actions/workflows/ci.yml/badge.svg?branch=main" alt="build status"></a>
+</p>
+
 ### Why? 
 
 When you add the environment variable in `.env` file, no matter what value you set, you can only get a string value through `import.meta.env`.
