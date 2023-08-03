@@ -1,8 +1,10 @@
 type Prefix = string | string[] | undefined
 
-type ParseType = 'number' | 'string' | 'boolean'
+type ParseType = 'number' | 'string' | 'boolean' | 'number[]' | 'string[]' | 'boolean[]'
 
-const TYPE_SUFFIX_REGEX = /\|(number|string|boolean)$/
+const TYPE_SUFFIX_REGEX = /\|(number|string|boolean)(\[\])?$/
+
+const LIKE_ARRAY_REGEX = /^\[.*\]$/
 
 export function parse(env: Record<string, string>, prefix: Prefix = 'VITE_') {
   const metaEnv: any = {}
@@ -16,9 +18,22 @@ export function parse(env: Record<string, string>, prefix: Prefix = 'VITE_') {
     try {
       const needForceParse = TYPE_SUFFIX_REGEX.test(targetEnv)
       if (needForceParse) {
-        const type = targetEnv.match(TYPE_SUFFIX_REGEX)![1]
+        const type = targetEnv.match(TYPE_SUFFIX_REGEX)![0].slice(1)
         const value = targetEnv.replace(TYPE_SUFFIX_REGEX, '')
-        metaEnv[key] = forceParse(type as ParseType, value)
+        if (type.endsWith('[]')) {
+          const array = JSON.parse(value) // array item need double quotes in env
+          metaEnv[key] = []
+          for (const item of array) {
+            metaEnv[key].push(forceParse(type.replace('[]', '') as ParseType, item))
+          }
+        }
+        else {
+          metaEnv[key] = forceParse(type as ParseType, value)
+        }
+      }
+      else if (LIKE_ARRAY_REGEX.test(targetEnv)) {
+        // not parsed by default
+        metaEnv[key] = targetEnv
       }
       else {
         metaEnv[key] = JSON.parse(targetEnv)
@@ -34,10 +49,12 @@ export function parse(env: Record<string, string>, prefix: Prefix = 'VITE_') {
 function forceParse(type: ParseType, value: string) {
   switch (type) {
     case 'number':
-      return Number(value)
+      return parseInt(value)
     case 'boolean':
-      return value === 'true'
+      return value.toString() === 'true' // 'true' or true
+    case 'string':
+      return value.toString()
     default:
-      return value // default is same as string
+      return value
   }
 }

@@ -36,16 +36,25 @@ export default defineConfig({
 
 ```bash
 # auto convert to number
-VITE_PORT=3000
+VITE_PORT=3000 
+# import.meta.env.VITE_PORT => 3000
 
 # hold string
-VITE_APP_TITLE=demo
+VITE_APP_TITLE=demo 
+# import.meta.env.VITE_APP_TITLE => 'demo'
 
 # auto convert to boolean
-VITE_DROP_CONSOLE=false
+VITE_DROP_CONSOLE=false 
+# import.meta.env.VITE_DROP_CONSOLE => false
 
 # force covert to string
-VITE_FORCE_STRING=true|string
+VITE_FORCE_STRING=true|string 
+# import.meta.env.VITE_FORCE_STRING => 'true'
+
+# force covert to array<string> TIPS: string item in array need use double quote
+VITE_LIKES=["A", 1, true]|string[]
+# import.meta.env.VITE_LIKES => ['A', '1', 'true']
+
 ```
 
 more information in this [example app](https://github.com/zhou-tao/vite-plugin-env-parser/tree/main/examples/vite-vue3).
