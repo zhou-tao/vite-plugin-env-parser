@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-env-parser",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "packageManager": "pnpm@8.6.10",
   "description": "vite plugin for env variables type parse.",
   "author": "toryz <zhoutao_233@163.com>",
