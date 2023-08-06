@@ -18,7 +18,7 @@
           <td>{{ name }}</td>
           <td>{{ value }}</td>
           <td class="type">
-            {{ typeof value }}
+            {{ Array.isArray(value) ? `${typeof value[0]}[]` : typeof value }}
           </td>
         </template>
       </tr>

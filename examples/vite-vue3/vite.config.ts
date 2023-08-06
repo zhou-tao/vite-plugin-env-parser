@@ -1,8 +1,18 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import envParser from '../../dist/index.mjs'
+import envParser, { parseEnv } from 'vite-plugin-env-parser'
 
-export default defineConfig({
-  plugins: [vue(), envParser()],
-  envPrefix: ['VITE_', 'APP_']
+export default defineConfig(({ mode }) => {
+  const envPrefix = ['VITE_', 'APP_']
+  const { VITE_PORT } = parseEnv(loadEnv(mode, process.cwd(), envPrefix))
+  return {
+    plugins: [vue(), envParser({
+      dts: './src/vite-env.d.ts',
+      injectAtEnd: false
+    })],
+    envPrefix,
+    server: {
+      port: VITE_PORT
+    }
+  }
 })
