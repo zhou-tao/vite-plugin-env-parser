@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <h2>import.meta.env</h2>
+  <h2>user env variables</h2>
   <table>
     <thead>
       <tr>

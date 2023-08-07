@@ -6,10 +6,13 @@ export default defineConfig(({ mode }) => {
   const envPrefix = ['VITE_', 'APP_']
   const { VITE_PORT } = parseEnv(loadEnv(mode, process.cwd(), envPrefix))
   return {
-    plugins: [vue(), envParser({
-      dts: './src/vite-env.d.ts',
-      injectAtEnd: false
-    })],
+    plugins: [
+      vue(),
+      envParser({
+        dts: './src/vite-env.d.ts',
+        injectAtEnd: false
+      })
+    ],
     envPrefix,
     server: {
       port: VITE_PORT
