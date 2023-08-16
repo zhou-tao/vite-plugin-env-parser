@@ -1,5 +1,9 @@
 <script setup lang="ts">
+  import v from 'vite-env'
+
+  console.log(v.VITE_KUN_JOBS)
   const env = import.meta.env
+  console.log(env)
 </script>
 
 <template>

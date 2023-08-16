@@ -1,4 +1,3 @@
 export interface EnvParserOptions {
-  dts?: boolean | string
-  injectAtEnd?: boolean
+  dts?: string | boolean | string
 }

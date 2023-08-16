@@ -1,20 +1,13 @@
-type Prefix = string | string[] | undefined
-
 type ParseType = 'number' | 'string' | 'boolean' | 'number[]' | 'string[]' | 'boolean[]'
 
 const TYPE_SUFFIX_REGEX = /\|(number|string|boolean)(\[\])?$/
 
 const LIKE_ARRAY_REGEX = /^\[.*\]$/
 
-export function parse(env: Record<string, string>, prefix: Prefix = 'VITE_') {
+export function parse(env: Record<string, string>) {
   const metaEnv: any = {}
   for (const key in env) {
     const targetEnv: string = env[key]
-    const prefixes = Array.isArray(prefix) ? prefix : [prefix]
-    if (prefixes.every(p => !key.startsWith(p))) {
-      metaEnv[key] = targetEnv
-      continue
-    }
     try {
       const needForceParse = TYPE_SUFFIX_REGEX.test(targetEnv)
       if (needForceParse) {

@@ -9,8 +9,7 @@ export default defineConfig(({ mode }) => {
     plugins: [
       vue(),
       envParser({
-        dts: './src/vite-env.d.ts',
-        injectAtEnd: false
+        dts: true
       })
     ],
     envPrefix,
