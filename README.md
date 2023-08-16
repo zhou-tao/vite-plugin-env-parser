@@ -16,7 +16,7 @@ So this plugin can helps you automatically convert variable types.
 pnpm add vite-plugin-env-parser -D
 ```
 
-then add plugin in `vite.config.ts`
+add plugin in vite.config.ts
 
 ```js
 import { defineConfig } from 'vite'
@@ -25,36 +25,84 @@ import envParser from 'vite-plugin-env-parser'
 export default defineConfig({
   plugins: [
     // ...
-    envParser()
+    envParser({ /* options */ })
   ]
+})
+```
+
+### Configuration
+
+```js
+envParser({
+  // filepath to generate .d.ts for `vite-env`
+  // defaults to 'src/env.d.ts' when set true
+  // set false to disable
+  dts: true
 })
 ```
 
 ### Usage
 
-`.env` or `.env.xxx` file:
+example: .env file
 
 ```bash
-# auto convert to number
-VITE_PORT=3000 
-# import.meta.env.VITE_PORT => 3000
+VITE_APP_TITLE=Hello World!
 
-# hold string
-VITE_APP_TITLE=demo 
-# import.meta.env.VITE_APP_TITLE => 'demo'
+VITE_PORT=3000
 
-# auto convert to boolean
-VITE_DROP_CONSOLE=false 
-# import.meta.env.VITE_DROP_CONSOLE => false
+VITE_DROP_CONSOLE=true
 
-# force covert to string
-VITE_FORCE_STRING=true|string 
-# import.meta.env.VITE_FORCE_STRING => 'true'
+VITE_DROP_CONSOLE_STRING=true|string # force convert to string
 
-# force covert to array<string> TIPS: string item in array need use double quote
-VITE_LIKES=["A", 1, true]|string[]
-# import.meta.env.VITE_LIKES => ['A', '1', 'true']
+VITE_MY_LIKES=["sing", "dance", "rap", 666]
 
+VITE_MY_LIKES_STRING=["sing", "dance", "rap", 666]|string[] # force convert to array of string
 ```
 
-more information in this [example app](https://github.com/zhou-tao/vite-plugin-env-parser/tree/main/examples/vite-vue3).
+then you can import and use it by **vite-env**. like this:
+
+```js
+import { VITE_PORT, VITE_APP_TITLE } from 'vite-env'
+
+console.log(VITE_APP_TITLE) // log 'Hello World!', string
+console.log(VITE_PORT) // log 3000, number
+console.log(VITE_DROP_CONSOLE) // log true, boolean
+console.log(VITE_DROP_CONSOLE_STRING) // log 'true', string
+console.log(VITE_MY_LIKES) // log '["sing", "dance", "rap", 666]', string
+console.log(VITE_MY_LIKES_STRING) // log ["sing", "dance", "rap", "666"], string[]
+```
+
+By default, values of the base type are automatically converted by JSON.stringify. you also can set force type. 
+supported `string`、`number`、`boolean`、`string[]`、`number[]`、`boolean[]`
+
+but in vite.config.ts, **vite-env** is not working. you can resolved it like this:
+```js
+import { defineConfig, loadEnv } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import envParser, { parse } from 'vite-plugin-env-parser'
+
+export default defineConfig(({ mode }) => {
+  const a: EnvTypes = {}
+  const envPrefix = ['VITE_', 'APP_']
+  const { VITE_PORT } = parse(loadEnv(mode, process.cwd(), envPrefix))
+  return {
+    plugins: [
+      vue(),
+      envParser({
+        dts: true
+      })
+    ],
+    envPrefix,
+    server: {
+      port: VITE_PORT
+    }
+  }
+})
+```
+
+
+[Example Usage](https://github.com/zhou-tao/vite-plugin-env-parser/tree/main/examples/vite-vue3)
+
+### License
+
+[MIT](./LICENSE) License &copy; 2023-PRESENT [toryz](https://github.com/zhou-tao)
