@@ -1,4 +1,4 @@
-type ParseType = 'number' | 'string' | 'boolean' | 'number[]' | 'string[]' | 'boolean[]'
+import type { ViteEnv, ParseType } from './types'
 
 const TYPE_SUFFIX_REGEX = /\|(number|string|boolean)(\[\])?$/
 

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-  import v from 'vite-env'
+  import viteEnv from 'vite-env'
 
-  console.log(v.VITE_KUN_JOBS)
-  const env = import.meta.env
-  console.log(env)
+  console.log(viteEnv)
+
+  console.log(import.meta.env)
 </script>
 
 <template>
-  <h2>user env variables</h2>
+  <h2>Parsed env variables</h2>
   <table>
     <thead>
       <tr>
@@ -17,7 +17,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(value, name) in env" :key="name">
+      <tr v-for="(value, name) in viteEnv" :key="name">
         <template v-if="(name as string).startsWith('VITE_') || (name as string).startsWith('APP_')">
           <td>{{ name }}</td>
           <td>{{ value }}</td>

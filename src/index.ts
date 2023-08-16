@@ -19,18 +19,23 @@ export default function vitePluginEnvParse(options: EnvParserOptions = {}): Plug
       parsedEnv = parse(env)
     },
     resolveId(id) {
-      if (id === virtualModuleId) return resolvedVirtualModuleId
+      if (id === virtualModuleId) {
+        return resolvedVirtualModuleId
+      }
+    },
+    configResolved() {
+      generateDTS(options.dts, rootDir, parsedEnv)
     },
     load(id) {
       if (id === resolvedVirtualModuleId) {
-        const { dts } = options
-        generateDTS(dts, rootDir, parsedEnv)
         return createEnvCode(parsedEnv)
       }
     }
   }
 }
 
-export const parseEnv = parse
+export {
+  parse
+}
 
 export * from './types'
