@@ -1,5 +1,6 @@
 export interface EnvParserOptions {
   dts?: string | boolean | string
+  injectViteDTS?: boolean
 }
 
 export type DTS = string | boolean | undefined

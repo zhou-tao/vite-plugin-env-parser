@@ -37,7 +37,11 @@ envParser({
   // filepath to generate .d.ts for `vite-env`
   // defaults to 'src/env.d.ts' when set true
   // set false to disable
-  dts: true
+  dts: true,
+
+  // inject `/// <reference types="vite/client" />` in .d.ts
+  // does not take effect when dts is not set or set to false
+  injectViteDTS: true
 })
 ```
 
@@ -91,7 +95,8 @@ export default defineConfig(({ mode }) => {
     plugins: [
       vue(),
       envParser({
-        dts: true
+        dts: true, // or set .d.ts filepath. eg. 'src/vite-env.d.ts'
+        injectViteDTS: true // inject `/// <reference types="vite/client" />`
       })
     ],
     server: {

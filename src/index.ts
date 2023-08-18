@@ -24,7 +24,7 @@ export default function vitePluginEnvParse(options: EnvParserOptions = {}): Plug
       }
     },
     configResolved() {
-      generateDTS(options.dts, rootDir, parsedEnv)
+      generateDTS(options, rootDir, parsedEnv)
     },
     load(id) {
       if (id === resolvedVirtualModuleId) {

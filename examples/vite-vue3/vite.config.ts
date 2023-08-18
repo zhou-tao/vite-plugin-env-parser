@@ -12,7 +12,8 @@ export default defineConfig(({ mode }) => {
     plugins: [
       vue(),
       envParser({
-        dts: true
+        dts: 'src/vite-env.d.ts', // or set .d.ts filepath. eg. 'src/vite-env.d.ts'
+        injectViteDTS: true // inject `/// <reference types="vite/client" />`
       })
     ],
     server: {
