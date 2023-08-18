@@ -42,8 +42,7 @@
     "prepublishOnly": "pnpm build",
     "release": "bumpp && npm publish",
     "test": "vitest",
-    "typecheck": "tsc --noEmit",
-    "postinstall": "simple-git-hooks"
+    "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
     "vite": ">=4"
